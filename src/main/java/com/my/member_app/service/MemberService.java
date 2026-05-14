@@ -49,7 +49,7 @@ public class MemberService {
 
     public MemberDto findById(Long id) {
         Optional<Member> member = memberRepository.findById(id);
-        if(member.isPresent()){
+        if (member.isPresent()) {
             return MemberDto.toDto(member.get());
         } else {
             return null;
@@ -58,5 +58,25 @@ public class MemberService {
 
     public void delete(Long deleteId) {
         memberRepository.deleteById(deleteId);
+    }
+
+    // 검색 서비스 만들기
+    // type : 이름/주소, keyword: 검색어
+    public List<MemberDto> search(String type, String keyword) {
+        List<Member> searchList = new ArrayList<>();
+        List<MemberDto> resultList = new ArrayList<>();
+        switch (type) {
+            case "name":
+                searchList = memberRepository.searchByName(keyword);
+                break;
+            case "address":
+                searchList = memberRepository.searchByAddress(keyword);
+                break;
+            default:
+                searchList = memberRepository.findAll();
+                break;
+        }
+        searchList.forEach(x -> resultList.add(MemberDto.toDto(x)));
+        return resultList;
     }
 }
