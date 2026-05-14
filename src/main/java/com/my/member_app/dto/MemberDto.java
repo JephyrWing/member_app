@@ -15,7 +15,7 @@ public class MemberDto {
     private String address;
 
     // DTO -> Entity로 변환하는 메서드(굉장히 많이 쓰이므로 메서드화)
-    public static Member toEntity(MemberDto dto){
+    public static Member toEntity(MemberDto dto) {
         //깡통 Member 생성 후 하나씩 넣어주고 리턴
         Member member = new Member();
         member.setId(dto.getId());
@@ -26,13 +26,8 @@ public class MemberDto {
     }
 
     // Entity -> DTO 변환 메서드
-    public static MemberDto toDto(Member member){
-        MemberDto dto = new MemberDto();
-        dto.setId(member.getId());
-        dto.setName(member.getName());
-        dto.setAge(member.getAge());
-        dto.setAddress(member.getAddress());
-        return dto;
+    public static MemberDto toDto(Member member) {
+        return new MemberDto(member.getId(), member.getName(), member.getAge(), member.getAddress());
     }
 
 }
