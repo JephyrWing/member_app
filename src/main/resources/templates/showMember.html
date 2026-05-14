@@ -2,7 +2,7 @@
 <html xmlns:th="www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title>[[${title}]]</title>
 </head>
 <body>
   <h1>회원정보</h1>
@@ -18,20 +18,18 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>ID</td>
-        <td>이름</td>
-        <td>나이</td>
-        <td>주소</td>
+      <tr th:each="dto : ${dtolist}" th:object="${dto}">
+        <td th:text="*{id}">ID</td>
+        <td th:text="*{name}">이름</td>
+        <td th:text="*{age}">나이</td>
+        <td th:text="*{address}">주소</td>
         <td>
-          <form>
-            <input type="submit" value="수정">
-          </form>
+            <button><a th:href="@{|/member/update?id=*{id}|}">수정</a></button>
         </td>
         <td>
-          <form>
-            <input type="submit" value="삭제">
-          </form>
+          
+            <button><a th:href="@{|/member/delete?id=*{id}|}">삭제</a></button>
+          
         </td>
       </tr>
     </tbody>
@@ -47,7 +45,7 @@
       <option value="name">이름</option>
       <option value="address">주소</option>
     </select>
-    <input type="text" value="keyword">
+    <input type="text" name="keyword" placeholder="키워드 입력">
     <input type="submit" value="검색">
   </form>
 </body>
