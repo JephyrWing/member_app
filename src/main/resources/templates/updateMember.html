@@ -6,21 +6,22 @@
 </head>
 <body>
   <h1>회원수정</h1>
-  <form>
+  <form th:action="@{/member/update}" method="post" th:object="${dto}">
     <div>
-      <label>ID:[[${dto.id}]]</label>
+      <label>ID : [[*{id}]]</label>
+      <input type="hidden" name="id" th:value="*{id}">
     </div>
     <div>
       <label>이름</label>
-      <input type="text">
+      <input type="text" name = "name" th:field="*{name}">
     </div>
     <div>
       <label>나이</label>
-      <input type="number" min="0" max="120">
+      <input type="number" name="age" min="0" max="120" th:field="*{age}">
     </div>
     <div>
       <label>주소</label>
-      <input type="text">
+      <input type="text" name="address" th:field="*{address}">
     </div>
     <input type="submit" value="등록">
   </form>

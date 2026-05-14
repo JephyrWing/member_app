@@ -50,9 +50,24 @@ public class MemberController {
         return "redirect:/member/view";
     }
     @GetMapping("/update")
-    public String updateForm(@RequestParam("id") Long id, Model model){
+    public String updateForm(@RequestParam("updateId") Long id, Model model,
+                             RedirectAttributes redirectAttributes){
         MemberDto dto = memberService.findById(id);
-        model.addAttribute("dto", dto);
-        return "updateMember";
+        if(dto == null) {
+            redirectAttributes.addFlashAttribute("message", "선택한 데이터가 없습니다.");
+            return "redirect:/member/view";
+        } else {
+            model.addAttribute("dto", dto);
+            return "updateMember";
+        }
+    }
+
+    @PostMapping("update")
+    public String update(@ModelAttribute("dto") MemberDto dto,
+                         RedirectAttributes redirectAttributes){
+        log.info("updatedDto:" + dto);
+        memberService.insert(dto);
+        redirectAttributes.addFlashAttribute("message", "정상적으로 수정되었습니다.");
+        return "redirect:/member/view";
     }
 }
