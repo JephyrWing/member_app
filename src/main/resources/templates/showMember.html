@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>[[${title}]]</title>
+</head>
+<body>
+  <h1>회원정보</h1>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>이름</th>
+        <th>나이</th>
+        <th>주소</th>
+        <th>수정</th>
+        <th>삭제</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="dto : ${dtolist}" th:object="${dto}">
+        <td th:text="*{id}">ID</td>
+        <td th:text="*{name}">이름</td>
+        <td th:text="*{age}">나이</td>
+        <td th:text="*{address}">주소</td>
+        <td>
+            <button><a th:href="@{|/member/update?id=*{id}|}">수정</a></button>
+        </td>
+        <td>
+          
+            <button><a th:href="@{|/member/delete?id=*{id}|}">삭제</a></button>
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  <form action="">
+    <input type="submit" value="신규회원입력">
+  </form>
+  <br>
+  <form action="">
+    <select name="type" id="">
+      <option value="">검색 조건 선택</option>
+      <option value="name">이름</option>
+      <option value="address">주소</option>
+    </select>
+    <input type="text" name="keyword" placeholder="키워드 입력">
+    <input type="submit" value="검색">
+  </form>
+</body>
+</html>
