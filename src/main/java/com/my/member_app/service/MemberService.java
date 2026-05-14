@@ -36,8 +36,22 @@ public class MemberService {
         // Entity List -> Dto List로 변환한 후 리턴
         List<Member> members = memberRepository.findAll();
         List<MemberDto> dtoList = new ArrayList<>();
+        //dtoList = members.stream().map(x->MemberDto.toDto(x)).toList();
         members.forEach(x -> dtoList.add(MemberDto.toDto(x)));
         return dtoList;
     }
 
+    public void insert(MemberDto dto) {
+        Member member = MemberDto.toEntity(dto);
+        memberRepository.save(member);
+    }
+
+    public MemberDto findById(Long id) {
+        Member member = memberRepository.findById(id).get();
+        return MemberDto.toDto(member);
+    }
+
+    public void delete(Long deleteId) {
+        memberRepository.deleteById(deleteId);
+    }
 }
