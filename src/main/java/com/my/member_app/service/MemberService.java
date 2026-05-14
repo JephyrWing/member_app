@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -47,8 +48,12 @@ public class MemberService {
     }
 
     public MemberDto findById(Long id) {
-        Member member = memberRepository.findById(id).get();
-        return MemberDto.toDto(member);
+        Optional<Member> member = memberRepository.findById(id);
+        if(member.isPresent()){
+            return MemberDto.toDto(member.get());
+        } else {
+            return null;
+        }
     }
 
     public void delete(Long deleteId) {

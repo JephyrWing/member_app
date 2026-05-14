@@ -39,12 +39,12 @@
         <td th:text="*{address}">주소</td>
         <td>
           <form th:action="@{/member/update}" method="get">
-            <input type="hidden" th:field="*{id}">
+            <input type="hidden" name="updateId" th:value="*{id}">
             <input type="submit" value="수정">
           </form>
         </td>
         <td>
-            <form th:action="@{/member/delete}" method="post">
+            <form th:action="@{/member/delete}" onsubmit="return confirmDelete();" method="post">
               <input type="hidden" name="deleteId" th:value="*{id}">
               <input type="submit" value="삭제">
             </form>
@@ -67,4 +67,9 @@
     <input type="submit" value="검색">
   </form>
 </body>
+<script>
+  function confirmDelete(){
+    return confirm("정말로 삭제하시겠습니까?")
+  }
+</script>
 </html>
